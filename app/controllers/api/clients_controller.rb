@@ -1,9 +1,15 @@
 class Api::ClientsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_client, only: %i[ show update destroy ]
+  before_action :set_client, only: %i[ show update archive destroy ]
 
   def index
     @clients = Client.all
+
+    render json: @clients, each_serializer: Api::ClientSerializer
+  end
+
+  def archived
+    @clients = Client.where(archived_at: !nil)
 
     render json: @clients, each_serializer: Api::ClientSerializer
   end
@@ -34,6 +40,18 @@ class Api::ClientsController < ApplicationController
     end
   end
 
+  def archive
+    result = Clients::Archive.call(@client, params[:archive_reason])
+
+    respond_to do |format|
+      if result.successful?
+        format.json { render json: Api::ClientSerializer.new(@client).to_json, status: :ok }
+      else
+        format.json { render json: @client.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     @client.destroy!
 
@@ -49,6 +67,6 @@ class Api::ClientsController < ApplicationController
   end
 
   def client_params
-    params.require(:client).permit(:first_name, :last_name, :email, :password)
+    params.require(:client).permit(:first_name, :last_name, :email, :password, :archive_reason)
   end
 end

@@ -4,5 +4,10 @@ FactoryBot.define do
     last_name  { Faker::Name.last_name }
     email      { Faker::Internet.unique.email }
     password   { Faker::Internet.password }
+
+    trait :archived do
+      archived_at { Time.current }
+      archived_reason { Faker::Adjective }
+    end
   end
 end

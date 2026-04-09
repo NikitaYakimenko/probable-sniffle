@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :clients
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -16,11 +15,11 @@ Rails.application.routes.draw do
   namespace :api do
     resources :clients do
       collection do
-        # get "/clients", to: "clients#index"
+        get :archived
       end
 
       member do
-        # get
+        patch :archive
       end
     end
   end
