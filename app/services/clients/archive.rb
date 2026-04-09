@@ -18,7 +18,7 @@ class Clients::Archive
     return Failure.new("Archive reason is required") if @archive_reason.blank?
 
     ActiveRecord::Base.transaction do
-      @client.update!(archived_at: Time.current, archived_reason: @archive_reason)
+      @client.update!(archived_at: Time.current, archived_reason: @archive_reason, restored_at: nil)
 
       Success.new(@client)
     rescue ActiveRecord::RecordInvalid => e

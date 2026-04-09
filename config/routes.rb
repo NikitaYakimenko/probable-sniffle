@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
       member do
         patch :archive
+        patch :restore
       end
     end
   end

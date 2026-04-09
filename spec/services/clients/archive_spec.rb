@@ -30,9 +30,7 @@ RSpec.describe Clients::Archive, :unit do
 
   it 'does not archive a client with invalid data' do
     allow(client).to receive(:update!).and_raise(ActiveRecord::RecordInvalid.new(client))
-
-    result = described_class.call(client, 123)
-    client.reload
+    result = described_class.call(client, archive_reason)
 
     expect(result).to be_failed
     expect(result.error).to eq 'Error when archiving: Validation failed: '
@@ -40,7 +38,6 @@ RSpec.describe Clients::Archive, :unit do
 
   it 'does not archive a client w/o archive reason' do
     result = described_class.call(client, nil)
-    client.reload
 
     expect(result).to be_failed
     expect(result.error).to eq 'Archive reason is required'
