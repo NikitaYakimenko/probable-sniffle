@@ -15,13 +15,13 @@ RSpec.describe Clients::Restore, :unit do
   end
 
   it 'does not restore an non-archived client' do
-    initial_updated_at = client.updated_at.to_datetime
+    initial_updated_at = client.updated_at
 
     result = described_class.call(client)
     client.reload
 
     expect(result).to be_successful
-    expect(client.updated_at.to_datetime).to eq initial_updated_at
+    expect(client.updated_at).to eq initial_updated_at
   end
 
   it 'does not restore a client with invalid data' do

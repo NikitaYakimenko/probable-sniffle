@@ -15,17 +15,17 @@ RSpec.describe Clients::Archive, :unit do
   end
 
   it 'does not archive an archived client' do
-    initial_updated_at = archived_client.updated_at.to_datetime
-    initial_archived_at = archived_client.archived_at.to_datetime
+    initial_updated_at = archived_client.updated_at
+    initial_archived_at = archived_client.archived_at
     initial_archive_reason = archived_client.archived_reason
 
     result = described_class.call(archived_client, archive_reason)
     archived_client.reload
 
     expect(result).to be_successful
-    expect(archived_client.archived_at.to_datetime).to eq initial_archived_at
+    expect(archived_client.archived_at).to eq initial_archived_at
     expect(archived_client.archived_reason).to eq initial_archive_reason
-    expect(archived_client.updated_at.to_datetime).to eq initial_updated_at
+    expect(archived_client.updated_at).to eq initial_updated_at
   end
 
   it 'does not archive a client with invalid data' do
