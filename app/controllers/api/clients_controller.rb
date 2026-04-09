@@ -9,7 +9,7 @@ class Api::ClientsController < ApplicationController
   end
 
   def archived
-    @clients = Client.where(archived_at: !nil)
+    @clients = ClientsQuery.archived
 
     render json: @clients, each_serializer: Api::ClientSerializer
   end
