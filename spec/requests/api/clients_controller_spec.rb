@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::ClientsController, type: :request do
   let(:client_params) { attributes_for(:client) }
-  let(:invalid_params) { { invalid_paramenter: 'invalid value' } }
+  let(:invalid_params) { { invalid_paramenter: Faker::Lorem.words.sample } }
 
   describe '/api/clients' do
     it 'returns accounts list' do

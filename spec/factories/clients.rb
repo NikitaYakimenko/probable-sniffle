@@ -6,8 +6,8 @@ FactoryBot.define do
     password   { Faker::Internet.password }
 
     trait :archived do
-      archived_at { Time.current }
-      archived_reason { Faker::Adjective }
+      archived_at     { Time.current }
+      archived_reason { Faker::Lorem.sentence }
     end
   end
 end

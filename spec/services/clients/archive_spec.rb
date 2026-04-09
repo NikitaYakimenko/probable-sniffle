@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Clients::Archive, :unit do
   let(:client) { create :client }
   let(:archived_client) { create :client, :archived }
-  let(:archive_reason) { 'some reason' }
+  let(:archive_reason) { Faker::Lorem.sentence }
 
   it 'archives a client' do
     result = described_class.call(client, archive_reason)
