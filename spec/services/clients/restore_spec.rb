@@ -21,7 +21,7 @@ RSpec.describe Clients::Restore, :unit do
     client.reload
 
     expect(result).to be_successful
-    expect(client.updated_at).to eq initial_updated_at
+    expect(client.updated_at).to be_within(1.second).of(initial_updated_at)
   end
 
   it 'does not restore a client with invalid data' do

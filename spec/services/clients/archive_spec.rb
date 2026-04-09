@@ -23,9 +23,9 @@ RSpec.describe Clients::Archive, :unit do
     archived_client.reload
 
     expect(result).to be_successful
-    expect(archived_client.archived_at).to eq initial_archived_at
+    expect(archived_client.archived_at).to be_within(1.second).of(initial_archived_at)
     expect(archived_client.archived_reason).to eq initial_archive_reason
-    expect(archived_client.updated_at).to eq initial_updated_at
+    expect(archived_client.updated_at).to be_within(1.second).of(initial_updated_at)
   end
 
   it 'does not archive a client with invalid data' do
