@@ -3,7 +3,7 @@ class Api::ClientsController < ApplicationController
   before_action :set_client, only: %i[ show update archive restore destroy ]
 
   def index
-    @clients = Client.all
+    @clients = ClientsQuery.all
 
     render json: @clients, each_serializer: Api::ClientSerializer
   end
